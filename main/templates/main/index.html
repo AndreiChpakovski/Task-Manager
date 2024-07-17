@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Список не выполненых задач!</h1>
+    {% if tasks %}
+        {% for el in tasks %}   <!-- создаеться елемент ЕЛ которыы обращаеться к табличке ТАСК -->
+            <div class="alert alert-warning mt-2">
+                <h3>{{ el.title }}</h3>  <!-- обращаеться к елементам ЕЛ и выбираються ВСЕ титле -->
+                <p>{{ el.task }}</p>     <!-- обращаеться к елементам ЕЛ и выбираються ВСЕ описания задач  таск  -->
+                <form method="post" action="{% url 'add_comment' %}">
+                    {% csrf_token %}
+                    <div class="container mt-5">
+                        <form>
+                          <div class="form-group">
+                            <!-- Поле для имени -->
+                            <div class="input-group mr-2">
+                              <input type="text" class="form-control" name="name" placeholder="Ваше имя" required>
+                            </div>
+                            <!-- Поле для комментария -->
+                            <div class="textarea-group">
+                              <textarea class="form-control" name="content" placeholder="Ваш комментарий" rows="3" required></textarea>
+                            </div>
+                          </div>
+                          <!-- Кнопка отправки формы -->
+                          <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                        </form>
+                      </div>
+
+                </form>
+                <h2>Все комментарии</h2>
+                <ul>
+                    {% for comment in comments %}  <!-- ojo coment solo desde tabla coment y no de task -->
+                        <li>
+                            <strong>{{ comment.name }}</strong>: {{ comment.content }} <br>
+                            <small>{{ comment.created_at }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У нас нет задач</p>
+    {% endif %}
+{% endblock %}
+
+
+

@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Все задачи
+{% endblock %}
+
+{% block search%}
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+{% endblock %}
+
+{% block content %}
+    <h1>Список всех задач</h1>
+
+    {% for tasks in tasks %}
+
+    <div class="alert alert-warning mt-0">
+        <p style="font-size: 22px;"><strong>{{ tasks.id }} {{ tasks.title }}</strong></p>
+
+        {% if tasks.is_complete == False %}
+        <span class="btn btn-secondary">Не завершено</span>
+        <a class="btn btn-success" href="{% url 'update' tasks_id=tasks.id %}">Закрыть</a>
+        {% else %}
+        <span class="btn btn-primary">Завершено</span>
+        <a class="btn btn-info" href="{% url 'update' tasks_id=tasks.id %}">Открыть</a>
+        {% endif %}
+
+        <a class="btn btn-outline-danger" href="{% url 'delete' tasks_id=tasks.id %}">Удалить</a>
+    </div>
+    {% endfor %}
+{% endblock %}
+

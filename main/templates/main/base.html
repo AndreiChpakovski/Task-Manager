@@ -1,0 +1,61 @@
+<!doctype html>
+{% load static %}
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="autor" content="Andrei Chpakovski">
+    <meta name="description" content="Test web, task manager">
+    <meta name="keywords" content="task manager, test django and python, personal manager, html">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" -->
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+      <style>
+        /* Дополнительные стили для выравнивания и рамки полей */
+        .form-group {
+          display: flex;
+          align-items: stretch;
+        }
+        .form-group .form-control {
+          height: 100%; /* Устанавливаем одинаковую высоту для полей */
+        }
+        .form-group .input-group {
+          flex: 1; /* Занимаем 1/3 ширины контейнера */
+        }
+        .form-group .textarea-group {
+          flex: 2; /* Занимаем 2/3 ширины контейнера */
+        }
+      </style>
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Менеджер задач (не забыть сдандаризировать под английский!!)</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="{% url 'home' %}">Главная</a>
+        <a class="p-2 text-dark" href="{% url 'create' %}">Создать задачу</a>
+        <a class="p-2 text-dark" href="{% url 'about' %}">Все задачи</a>
+      </nav>
+
+      <form class="form-inline my-2 my-lg-0">
+        {% block search%}{% endblock %}
+      </form>
+
+      <a class="btn btn-outline-primary" href="#">Войти</a>
+    </div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

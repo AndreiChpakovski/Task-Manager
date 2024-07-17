@@ -1,0 +1,29 @@
+<!-- main/templates/main/task_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали задачи</title>
+</head>
+<body>
+    <h1>{{ task.title }}</h1>
+    <p>{{ task.description }}</p>
+
+    <h2>Комментарии</h2>
+    <form method="post" action="{% url 'add_comment' task.id %}">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <textarea name="content" placeholder="Ваш комментарий" required></textarea>
+        <button type="submit">Добавить комментарий</button>
+    </form>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.name }}</strong>: {{ comment.content }} <br>
+                <small>{{ comment.created_at }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
